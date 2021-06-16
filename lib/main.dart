@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 
 main() => runApp(PerguntaApp());
 
-@override
-class PerguntaApp extends StatelessWidget {
+class PerguntaAppState extends State<PerguntaApp> {
   var perguntaSeleciodana = 0;
 
-  responder() {
-    perguntaSeleciodana++;
+  void responder() {
+    setState(() {
+      perguntaSeleciodana++;
+    });
     print(perguntaSeleciodana);
   }
 
@@ -32,5 +33,12 @@ class PerguntaApp extends StatelessWidget {
         ],
       ),
     ));
+  }
+}
+
+class PerguntaApp extends StatefulWidget {
+  @override
+  PerguntaAppState createState() {
+    return PerguntaAppState();
   }
 }
