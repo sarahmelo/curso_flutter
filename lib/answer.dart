@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Buttons extends StatelessWidget {
-  final String answer;
+class Answer extends StatelessWidget {
+  final answer;
   final void Function() onSelected;
 
-  Buttons(this.answer, this.onSelected);
+  Answer(this.answer, this.onSelected);
 
   @override
   Widget build(BuildContext context) {
