@@ -36,10 +36,14 @@ class _PerguntaAppState extends State<PerguntaApp> {
     return _questionSelected < _questions.length;
   }
 
+  @override
   Widget build(BuildContext context) {
     //Armazena em uma lista : a Pergunta(questions)com seu id atual(_questionSelected)
-    var question = _questions[_questionSelected]['respostas'] as List<String>;
-    List<String> answer = ifQuestionSelected ? question : [];
+    // Object? question = _questions[_questionSelected]['respostas'];
+    List<String> answer = ifQuestionSelected
+        ? _questions[_questionSelected]['respostas'] as List<String>
+        : [];
+    // answer as List<String>;
 
     // for (String textoResp in respostas ) {
     //   widgets.add(Answer(textoResp, _responder));
@@ -55,7 +59,9 @@ class _PerguntaAppState extends State<PerguntaApp> {
               Question(_questions[_questionSelected]['texto']),
               ...answer.map((texto) => Answer(texto, _responder)).toList()
             ])
-          : null,
+          : Center(
+              child: Text('Parabéns!', style: TextStyle(fontSize: 28)),
+            ),
     ));
   }
 }
