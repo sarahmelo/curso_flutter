@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import './question.dart';
-import 'answer.dart';
+import './quiz.dart';
+import './result.dart';
 
 main() => runApp(PerguntaApp());
 
@@ -11,24 +11,38 @@ class _PerguntaAppState extends State<PerguntaApp> {
   final _questions = const [
     {
       'texto': 'Qual a sua cor favorita?',
-      'respostas': ['Preto', 'Vermelho', 'Verde', 'Branco']
+      'respostas': [
+        {'texto': 'Preto', 'nota': 10},
+        {'texto': 'Vermelho', 'nota': 5},
+        {'texto': 'Verde', 'nota': 3},
+        {'texto': 'Branco', 'nota': 1},
+      ]
     },
     {
       'texto': 'Qual seu animal favorito?',
-      'respostas': ['Coelho', 'Cobra', 'Elefante', 'Leão']
+      'respostas': [
+        {'texto': 'Coelho', 'nota': 10},
+        {'texto': 'Cobra', 'nota': 5},
+        {'texto': 'Elefante', 'nota': 2},
+        {'texto': 'Leão', 'nota': 1},
+      ]
     },
     {
       'texto': 'Qual seu instrutor favorito?',
-      'respostas': ['Maria', 'João', 'Pedro', 'Leo']
+      'respostas': [
+        {'texto': 'Leo', 'nota': 10},
+        {'texto': 'Maria', 'nota': 5},
+        {'texto': 'João', 'nota': 4},
+        {'texto': 'Pedro', 'nota': 1},
+      ]
     }
   ];
 
-  void _responder() {
+  void _answerFn() {
     if (ifQuestionSelected) {
       setState(() {
         _questionSelected++;
       });
-      print(_questionSelected);
     }
   }
 
@@ -40,29 +54,23 @@ class _PerguntaAppState extends State<PerguntaApp> {
   Widget build(BuildContext context) {
     //Armazena em uma lista : a Pergunta(questions)com seu id atual(_questionSelected)
     // Object? question = _questions[_questionSelected]['respostas'];
-    List<String> answer = ifQuestionSelected
-        ? _questions[_questionSelected]['respostas'] as List<String>
-        : [];
     // answer as List<String>;
 
     // for (String textoResp in respostas ) {
-    //   widgets.add(Answer(textoResp, _responder));
+    //   widgets.add(Answer(textoResp, answerFn));
     // }
 
     return MaterialApp(
         home: Scaffold(
-      appBar: AppBar(
-        title: Text('questions'),
-      ),
-      body: ifQuestionSelected
-          ? Column(children: [
-              Question(_questions[_questionSelected]['texto']),
-              ...answer.map((texto) => Answer(texto, _responder)).toList()
-            ])
-          : Center(
-              child: Text('Parabéns!', style: TextStyle(fontSize: 28)),
+            appBar: AppBar(
+              title: Text('questions'),
             ),
-    ));
+            body: ifQuestionSelected
+                ? Quiz(
+                    questions: _questions,
+                    questionSelected: _questionSelected,
+                    answerFn: _answerFn)
+                : Result()));
   }
 }
 
